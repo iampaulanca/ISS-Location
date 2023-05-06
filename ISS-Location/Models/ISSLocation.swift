@@ -6,20 +6,30 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct ISSLocation: Codable {
-    let position: ISSPosition
-    let timestamp: Int
-    let message: String
-    
+class ISSLocation: Object, Codable {
+    @objc dynamic var position: ISSPosition?
+    @objc dynamic var timestamp: Int = 0
+    @objc dynamic var message: String = ""
+
     enum CodingKeys: String, CodingKey {
         case position = "iss_position"
         case timestamp
         case message
     }
+
+    override static func primaryKey() -> String? {
+        return "timestamp"
+    }
+}
+
+class ISSPosition: Object, Codable {
+    @objc dynamic var longitude: String = ""
+    @objc dynamic var latitude: String = ""
     
-    struct ISSPosition: Codable {
-        let longitude: String
-        let latitude: String
+    enum CodingKeys: String, CodingKey {
+        case longitude
+        case latitude
     }
 }

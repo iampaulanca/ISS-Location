@@ -19,6 +19,10 @@
 		782E8A222A061EE1006F2BED /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A212A061EE1006F2BED /* MapView.swift */; };
 		782E8A242A061F3D006F2BED /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A232A061F3D006F2BED /* LocationManager.swift */; };
 		782E8A262A0622E6006F2BED /* ISSLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A252A0622E6006F2BED /* ISSLocation.swift */; };
+		782E8A2A2A062A28006F2BED /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 782E8A292A062A28006F2BED /* Realm */; };
+		782E8A2C2A062A28006F2BED /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 782E8A2B2A062A28006F2BED /* RealmSwift */; };
+		782E8A2E2A062C11006F2BED /* ISSInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A2D2A062C11006F2BED /* ISSInfoView.swift */; };
+		782E8A302A062C55006F2BED /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A2F2A062C55006F2BED /* MainViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,8 @@
 		782E8A232A061F3D006F2BED /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		782E8A252A0622E6006F2BED /* ISSLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSLocation.swift; sourceTree = "<group>"; };
 		782E8A272A062694006F2BED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		782E8A2D2A062C11006F2BED /* ISSInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSInfoView.swift; sourceTree = "<group>"; };
+		782E8A2F2A062C55006F2BED /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +68,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				782E8A2C2A062A28006F2BED /* RealmSwift in Frameworks */,
+				782E8A2A2A062A28006F2BED /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +165,7 @@
 			children = (
 				782E89F12A060F61006F2BED /* MainView.swift */,
 				782E8A212A061EE1006F2BED /* MapView.swift */,
+				782E8A2D2A062C11006F2BED /* ISSInfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -164,6 +173,7 @@
 		782E8A202A061E9B006F2BED /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				782E8A2F2A062C55006F2BED /* MainViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -184,6 +194,10 @@
 			dependencies = (
 			);
 			name = "ISS-Location";
+			packageProductDependencies = (
+				782E8A292A062A28006F2BED /* Realm */,
+				782E8A2B2A062A28006F2BED /* RealmSwift */,
+			);
 			productName = "ISS-Location";
 			productReference = 782E89EC2A060F61006F2BED /* ISS-Location.app */;
 			productType = "com.apple.product-type.application";
@@ -256,6 +270,9 @@
 				Base,
 			);
 			mainGroup = 782E89E32A060F61006F2BED;
+			packageReferences = (
+				782E8A282A062A28006F2BED /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = 782E89ED2A060F61006F2BED /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -300,11 +317,13 @@
 			files = (
 				782E89FC2A060F62006F2BED /* ISS_Location.xcdatamodeld in Sources */,
 				782E89F92A060F62006F2BED /* Persistence.swift in Sources */,
+				782E8A2E2A062C11006F2BED /* ISSInfoView.swift in Sources */,
 				782E8A242A061F3D006F2BED /* LocationManager.swift in Sources */,
 				782E8A222A061EE1006F2BED /* MapView.swift in Sources */,
 				782E89F22A060F61006F2BED /* MainView.swift in Sources */,
 				782E89F02A060F61006F2BED /* ISS_LocationApp.swift in Sources */,
 				782E8A262A0622E6006F2BED /* ISSLocation.swift in Sources */,
+				782E8A302A062C55006F2BED /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,6 +652,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		782E8A282A062A28006F2BED /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		782E8A292A062A28006F2BED /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 782E8A282A062A28006F2BED /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		782E8A2B2A062A28006F2BED /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 782E8A282A062A28006F2BED /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		782E89FA2A060F62006F2BED /* ISS_Location.xcdatamodeld */ = {
