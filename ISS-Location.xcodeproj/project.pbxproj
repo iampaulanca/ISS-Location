@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		782E89F02A060F61006F2BED /* ISS_LocationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E89EF2A060F61006F2BED /* ISS_LocationApp.swift */; };
-		782E89F22A060F61006F2BED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E89F12A060F61006F2BED /* ContentView.swift */; };
+		782E89F22A060F61006F2BED /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E89F12A060F61006F2BED /* MainView.swift */; };
 		782E89F42A060F62006F2BED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 782E89F32A060F62006F2BED /* Assets.xcassets */; };
 		782E89F72A060F62006F2BED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 782E89F62A060F62006F2BED /* Preview Assets.xcassets */; };
 		782E89F92A060F62006F2BED /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E89F82A060F62006F2BED /* Persistence.swift */; };
@@ -16,6 +16,9 @@
 		782E8A062A060F62006F2BED /* ISS_LocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A052A060F62006F2BED /* ISS_LocationTests.swift */; };
 		782E8A102A060F62006F2BED /* ISS_LocationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A0F2A060F62006F2BED /* ISS_LocationUITests.swift */; };
 		782E8A122A060F62006F2BED /* ISS_LocationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A112A060F62006F2BED /* ISS_LocationUITestsLaunchTests.swift */; };
+		782E8A222A061EE1006F2BED /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A212A061EE1006F2BED /* MapView.swift */; };
+		782E8A242A061F3D006F2BED /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A232A061F3D006F2BED /* LocationManager.swift */; };
+		782E8A262A0622E6006F2BED /* ISSLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A252A0622E6006F2BED /* ISSLocation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +41,7 @@
 /* Begin PBXFileReference section */
 		782E89EC2A060F61006F2BED /* ISS-Location.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ISS-Location.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		782E89EF2A060F61006F2BED /* ISS_LocationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISS_LocationApp.swift; sourceTree = "<group>"; };
-		782E89F12A060F61006F2BED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		782E89F12A060F61006F2BED /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		782E89F32A060F62006F2BED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		782E89F62A060F62006F2BED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		782E89F82A060F62006F2BED /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -48,6 +51,10 @@
 		782E8A0B2A060F62006F2BED /* ISS-LocationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ISS-LocationUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		782E8A0F2A060F62006F2BED /* ISS_LocationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISS_LocationUITests.swift; sourceTree = "<group>"; };
 		782E8A112A060F62006F2BED /* ISS_LocationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISS_LocationUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		782E8A212A061EE1006F2BED /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		782E8A232A061F3D006F2BED /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		782E8A252A0622E6006F2BED /* ISSLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSLocation.swift; sourceTree = "<group>"; };
+		782E8A272A062694006F2BED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +105,11 @@
 		782E89EE2A060F61006F2BED /* ISS-Location */ = {
 			isa = PBXGroup;
 			children = (
+				782E8A272A062694006F2BED /* Info.plist */,
+				782E8A202A061E9B006F2BED /* ViewModels */,
+				782E8A1F2A061E96006F2BED /* Views */,
+				782E8A1E2A061E8F006F2BED /* Models */,
 				782E89EF2A060F61006F2BED /* ISS_LocationApp.swift */,
-				782E89F12A060F61006F2BED /* ContentView.swift */,
 				782E89F32A060F62006F2BED /* Assets.xcassets */,
 				782E89F82A060F62006F2BED /* Persistence.swift */,
 				782E89FA2A060F62006F2BED /* ISS_Location.xcdatamodeld */,
@@ -131,6 +141,31 @@
 				782E8A112A060F62006F2BED /* ISS_LocationUITestsLaunchTests.swift */,
 			);
 			path = "ISS-LocationUITests";
+			sourceTree = "<group>";
+		};
+		782E8A1E2A061E8F006F2BED /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				782E8A232A061F3D006F2BED /* LocationManager.swift */,
+				782E8A252A0622E6006F2BED /* ISSLocation.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		782E8A1F2A061E96006F2BED /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				782E89F12A060F61006F2BED /* MainView.swift */,
+				782E8A212A061EE1006F2BED /* MapView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		782E8A202A061E9B006F2BED /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,8 +300,11 @@
 			files = (
 				782E89FC2A060F62006F2BED /* ISS_Location.xcdatamodeld in Sources */,
 				782E89F92A060F62006F2BED /* Persistence.swift in Sources */,
-				782E89F22A060F61006F2BED /* ContentView.swift in Sources */,
+				782E8A242A061F3D006F2BED /* LocationManager.swift in Sources */,
+				782E8A222A061EE1006F2BED /* MapView.swift in Sources */,
+				782E89F22A060F61006F2BED /* MainView.swift in Sources */,
 				782E89F02A060F61006F2BED /* ISS_LocationApp.swift in Sources */,
+				782E8A262A0622E6006F2BED /* ISSLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +466,8 @@
 				DEVELOPMENT_TEAM = 85Z4E9D6W3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ISS-Location/Info.plist";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs your location to calculate distance to ISS.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -457,6 +497,8 @@
 				DEVELOPMENT_TEAM = 85Z4E9D6W3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ISS-Location/Info.plist";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs your location to calculate distance to ISS.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
