@@ -9,12 +9,9 @@ import SwiftUI
 
 @main
 struct ISS_LocationApp: App {
-    let persistenceController = PersistenceController.shared
-
     var body: some Scene {
         WindowGroup {
             MainView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

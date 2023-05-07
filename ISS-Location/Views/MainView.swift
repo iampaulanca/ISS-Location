@@ -12,10 +12,9 @@ import MapKit
 
 struct MainView: View {
     @ObservedObject var mainViewModel = MainViewModel()
+    @State var initialLoadCompleted = false
     let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     
-    @State var initialLoadCompleted = false
-
     var body: some View {
         TabView {
             ISSInfoView(mainViewModel: mainViewModel)
@@ -63,6 +62,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        MainView()
     }
 }

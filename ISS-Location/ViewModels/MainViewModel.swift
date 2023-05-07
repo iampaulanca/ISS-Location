@@ -12,11 +12,14 @@ import CoreLocation
 
 @MainActor class MainViewModel: ObservableObject {
     @ObservedObject var locationViewManager = LocationManager()
+    @Published private var realm: Realm?
     @Published var locations = [CLLocationCoordinate2D]()
-    @Published var realm: Realm?
     @Published var currentISSLocation: CLLocation?
     @Published var currentDistanceToISS: Double = 0.0
     @Published var astronauts: [Astronaut] = []
+    @Published var alertShow = false
+    @Published var alertMessage = ""
+    @Published var isLoading = false
     init() {
         if let realm = try? Realm() {
             self.realm = realm
@@ -65,7 +68,7 @@ import CoreLocation
         }
     }
     
-    func fetchCurrentLocation() -> CLLocation {
+    func fetchUsersCurrentLocation() -> CLLocation {
         return locationViewManager.locationManager?.location ?? MapDetails.startingLocation
     }
     
@@ -74,7 +77,7 @@ import CoreLocation
             do {
                 try await fetchLocationOfISS()
                 guard let currentISSLocation = currentISSLocation else { print("throw alert"); return }
-                currentDistanceToISS = currentISSLocation.distance(from: fetchCurrentLocation()) / 1000
+                currentDistanceToISS = currentISSLocation.distance(from: fetchUsersCurrentLocation()) / 1000
             } catch {
                 throw error
             }

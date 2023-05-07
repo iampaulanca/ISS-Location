@@ -17,16 +17,6 @@ enum MapDetails {
 struct MapView: View {
     @Binding var locationManager: LocationManager
     @ObservedObject var mainViewModel: MainViewModel
-    
-    @State private var lineCoordinates = [
-        // Steve Jobs theatre
-        CLLocationCoordinate2D(latitude: 37.330828, longitude: -122.007495),
-        // Caffè Macs
-        CLLocationCoordinate2D(latitude: 37.336083, longitude: -122.007356),
-        // Apple wellness center
-        CLLocationCoordinate2D(latitude: 37.336901, longitude:  -122.012345)
-    ]
-    
     var body: some View {
         MapUIViewRepresentable(region: mainViewModel.locationViewManager.region, lineCoordinates: $mainViewModel.locations)
     }
