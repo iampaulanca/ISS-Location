@@ -16,15 +16,67 @@ enum MapDetails {
 
 struct MapView: View {
     @Binding var locationManager: LocationManager
+    @ObservedObject var mainViewModel: MainViewModel
+    
+    @State private var lineCoordinates = [
+        // Steve Jobs theatre
+        CLLocationCoordinate2D(latitude: 37.330828, longitude: -122.007495),
+        // Caffè Macs
+        CLLocationCoordinate2D(latitude: 37.336083, longitude: -122.007356),
+        // Apple wellness center
+        CLLocationCoordinate2D(latitude: 37.336901, longitude:  -122.012345)
+    ]
+    
     var body: some View {
-        Map(coordinateRegion: $locationManager.region, showsUserLocation: true)
-            .edgesIgnoringSafeArea(.top)
-            .tint(Color(.systemPink))
+        MapUIViewRepresentable(region: mainViewModel.locationViewManager.region, lineCoordinates: $mainViewModel.locations)
+    }
+}
+
+struct MapUIViewRepresentable: UIViewRepresentable {
+    let region: MKCoordinateRegion
+    @Binding var lineCoordinates: [CLLocationCoordinate2D]
+    
+    func makeUIView(context: Context) -> MKMapView {
+        let mapView = MKMapView()
+        mapView.delegate = context.coordinator
+        mapView.region = region
+        mapView.showsUserLocation = true
+        let polyline = MKPolyline(coordinates: lineCoordinates, count: lineCoordinates.count)
+        mapView.addOverlay(polyline)
+        return mapView
+    }
+    
+    func updateUIView(_ view: MKMapView, context: Context) {
+        let polyline = MKPolyline(coordinates: lineCoordinates, count: lineCoordinates.count)
+        view.removeOverlays(view.overlays)
+        view.addOverlay(polyline)
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    class Coordinator: NSObject, MKMapViewDelegate {
+        var parent: MapUIViewRepresentable
+        
+        init(_ parent: MapUIViewRepresentable) {
+            self.parent = parent
+        }
+        
+        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            if let routePolyline = overlay as? MKPolyline {
+                let renderer = MKPolylineRenderer(polyline: routePolyline)
+                renderer.strokeColor = UIColor.systemBlue
+                renderer.lineWidth = 5
+                return renderer
+            }
+            return MKOverlayRenderer()
+        }
     }
 }
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(locationManager: .constant(.init()))
+        MapView(locationManager: .constant(.init()), mainViewModel: MainViewModel())
     }
 }

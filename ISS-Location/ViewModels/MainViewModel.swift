@@ -12,7 +12,7 @@ import CoreLocation
 
 @MainActor class MainViewModel: ObservableObject {
     @ObservedObject var locationViewManager = LocationManager()
-    @Published var locations = [ISSPositionResponse]()
+    @Published var locations = [CLLocationCoordinate2D]()
     @Published var realm: Realm?
     @Published var currentISSLocation: CLLocation?
     @Published var currentDistanceToISS: Double = 0.0
@@ -22,7 +22,12 @@ import CoreLocation
             self.realm = realm
             let locationsInMemory = realm.objects(ISSPositionResponse.self)
             let sortedLocations = locationsInMemory.sorted(byKeyPath: "timestamp", ascending: true)
-            self.locations = Array(sortedLocations)
+            for location in sortedLocations {
+                if let lat = Double(location.position?.latitude ?? ""), let long = Double(location.position?.longitude ?? "") {
+                    let coreLocation2D = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                    locations.append(coreLocation2D)
+                }
+            }
         } else {
             print("throw alert that realm isnt wortking")
         }
@@ -35,8 +40,9 @@ import CoreLocation
             guard let url = URL(string: "http://api.open-notify.org/iss-now.json") else { fatalError("need url") }
             let (data, _) = try await URLSession.shared.data(from: url)
             let issLocation = try JSONDecoder().decode(ISSPositionResponse.self, from: data)
-            if let issLocation = issLocation.position {
-                 currentISSLocation = CLLocation(latitude: Double(issLocation.latitude) ?? 0.0, longitude: Double(issLocation.longitude) ?? 0.0)
+            if let issLocation = issLocation.position, let lat = Double(issLocation.latitude), let long = Double(issLocation.longitude) {
+                 currentISSLocation = CLLocation(latitude: lat, longitude: long)
+                locationViewManager.region.center = CLLocationCoordinate2D(latitude: lat, longitude: long)
             }
             try save(issLocation)
             return issLocation
@@ -78,8 +84,11 @@ import CoreLocation
     func save(_ issLocation: ISSPositionResponse) throws {
         do {
             try realm?.write {
-//                realm?.add(issLocation)
-                locations.append(issLocation)
+                realm?.add(issLocation)
+                if let lat = Double(issLocation.position?.latitude ?? ""), let long = Double(issLocation.position?.longitude ?? "") {
+                    let coreLocation2D = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                    locations.append(coreLocation2D)
+                }
             }
         } catch {
             throw error

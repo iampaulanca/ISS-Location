@@ -35,7 +35,7 @@ struct MainView: View {
                     Text("Astronauts")
                 }
             
-            MapView(locationManager: $mainViewModel.locationViewManager)
+            MapView(locationManager: $mainViewModel.locationViewManager, mainViewModel: mainViewModel)
                 .tabItem {
                     Image(systemName: "mappin.and.ellipse")
                     Text("Map")

@@ -121,9 +121,9 @@
 				782E8A202A061E9B006F2BED /* ViewModels */,
 				782E8A1F2A061E96006F2BED /* Views */,
 				782E8A1E2A061E8F006F2BED /* Models */,
-				782E89EF2A060F61006F2BED /* ISS_LocationApp.swift */,
 				782E89F32A060F62006F2BED /* Assets.xcassets */,
 				782E89F82A060F62006F2BED /* Persistence.swift */,
+				782E89EF2A060F61006F2BED /* ISS_LocationApp.swift */,
 				782E89FA2A060F62006F2BED /* ISS_Location.xcdatamodeld */,
 				782E89F52A060F62006F2BED /* Preview Content */,
 			);
@@ -158,7 +158,6 @@
 		782E8A1E2A061E8F006F2BED /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				782E8A232A061F3D006F2BED /* LocationManager.swift */,
 				782E8A252A0622E6006F2BED /* ISSPositionResponse.swift */,
 				782E8A312A07808F006F2BED /* AstronautResponse.swift */,
 			);
@@ -179,6 +178,7 @@
 		782E8A202A061E9B006F2BED /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				782E8A232A061F3D006F2BED /* LocationManager.swift */,
 				782E8A2F2A062C55006F2BED /* MainViewModel.swift */,
 			);
 			path = ViewModels;
