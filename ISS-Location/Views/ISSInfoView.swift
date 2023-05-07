@@ -10,7 +10,13 @@ import SwiftUI
 struct ISSInfoView: View {
     @ObservedObject var mainViewModel: MainViewModel
     var body: some View {
-        VStack(alignment: .leading) {
+        
+        VStack(alignment: .leading, spacing: 5) {
+            Text("Location Info")
+                .font(.title)
+                .bold()
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding()
             let delta = String(format: "%.4f", mainViewModel.currentDistanceToISS)
             Text("Current coordinates")
                 .bold()
@@ -25,11 +31,11 @@ struct ISSInfoView: View {
             Text("Longitude: \(String(format: "%.4f", mainViewModel.currentISSLocation?.coordinate.longitude ?? 0.0))")
                 .padding(.bottom)
             
-            Text("Distance to ISS (KM): \(delta) KM")
+            Text("Distance to ISS: ").bold() + Text("\(delta)KM")
             Spacer()
         }
         .frame(maxWidth: .infinity)
-        .padding()
+        .padding(.horizontal)
     }
 }
 

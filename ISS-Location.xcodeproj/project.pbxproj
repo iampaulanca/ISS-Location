@@ -24,6 +24,7 @@
 		782E8A2E2A062C11006F2BED /* ISSInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A2D2A062C11006F2BED /* ISSInfoView.swift */; };
 		782E8A302A062C55006F2BED /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A2F2A062C55006F2BED /* MainViewModel.swift */; };
 		782E8A322A07808F006F2BED /* AstronautResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A312A07808F006F2BED /* AstronautResponse.swift */; };
+		782E8A342A07854C006F2BED /* AstronautListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A332A07854C006F2BED /* AstronautListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		782E8A2D2A062C11006F2BED /* ISSInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSInfoView.swift; sourceTree = "<group>"; };
 		782E8A2F2A062C55006F2BED /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		782E8A312A07808F006F2BED /* AstronautResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronautResponse.swift; sourceTree = "<group>"; };
+		782E8A332A07854C006F2BED /* AstronautListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronautListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 				782E89F12A060F61006F2BED /* MainView.swift */,
 				782E8A212A061EE1006F2BED /* MapView.swift */,
 				782E8A2D2A062C11006F2BED /* ISSInfoView.swift */,
+				782E8A332A07854C006F2BED /* AstronautListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				782E89FC2A060F62006F2BED /* ISS_Location.xcdatamodeld in Sources */,
+				782E8A342A07854C006F2BED /* AstronautListView.swift in Sources */,
 				782E89F92A060F62006F2BED /* Persistence.swift in Sources */,
 				782E8A2E2A062C11006F2BED /* ISSInfoView.swift in Sources */,
 				782E8A242A061F3D006F2BED /* LocationManager.swift in Sources */,

@@ -61,19 +61,6 @@ struct MainView: View {
     }
 }
 
-struct AstronautListView: View {
-    @ObservedObject var mainViewModel: MainViewModel
-    var body: some View {
-        NavigationStack {
-            List {
-                ForEach(mainViewModel.astronauts, id: \.name) { astronaut in
-                    Text("\(astronaut.name)")
-                }
-            }
-        }
-    }
-}
-
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
