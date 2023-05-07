@@ -9,7 +9,8 @@ import SwiftUI
 import MapKit
 
 enum MapDetails {
-    static let startingLocation = CLLocationCoordinate2D(latitude: 37.331516, longitude: -121.891054)
+    static let startingLocation2D = CLLocationCoordinate2D(latitude: 37.331516, longitude: -121.891054)
+    static let startingLocation = CLLocation(latitude: 37.331516, longitude: -121.891054)
     static let startingLocationSpan = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
 }
 

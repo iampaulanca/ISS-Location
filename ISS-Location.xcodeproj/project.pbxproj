@@ -18,11 +18,12 @@
 		782E8A122A060F62006F2BED /* ISS_LocationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A112A060F62006F2BED /* ISS_LocationUITestsLaunchTests.swift */; };
 		782E8A222A061EE1006F2BED /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A212A061EE1006F2BED /* MapView.swift */; };
 		782E8A242A061F3D006F2BED /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A232A061F3D006F2BED /* LocationManager.swift */; };
-		782E8A262A0622E6006F2BED /* ISSLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A252A0622E6006F2BED /* ISSLocation.swift */; };
+		782E8A262A0622E6006F2BED /* ISSPositionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A252A0622E6006F2BED /* ISSPositionResponse.swift */; };
 		782E8A2A2A062A28006F2BED /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 782E8A292A062A28006F2BED /* Realm */; };
 		782E8A2C2A062A28006F2BED /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 782E8A2B2A062A28006F2BED /* RealmSwift */; };
 		782E8A2E2A062C11006F2BED /* ISSInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A2D2A062C11006F2BED /* ISSInfoView.swift */; };
 		782E8A302A062C55006F2BED /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A2F2A062C55006F2BED /* MainViewModel.swift */; };
+		782E8A322A07808F006F2BED /* AstronautResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A312A07808F006F2BED /* AstronautResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,10 +58,11 @@
 		782E8A112A060F62006F2BED /* ISS_LocationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISS_LocationUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		782E8A212A061EE1006F2BED /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		782E8A232A061F3D006F2BED /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		782E8A252A0622E6006F2BED /* ISSLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSLocation.swift; sourceTree = "<group>"; };
+		782E8A252A0622E6006F2BED /* ISSPositionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSPositionResponse.swift; sourceTree = "<group>"; };
 		782E8A272A062694006F2BED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		782E8A2D2A062C11006F2BED /* ISSInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSInfoView.swift; sourceTree = "<group>"; };
 		782E8A2F2A062C55006F2BED /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		782E8A312A07808F006F2BED /* AstronautResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronautResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,7 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				782E8A232A061F3D006F2BED /* LocationManager.swift */,
-				782E8A252A0622E6006F2BED /* ISSLocation.swift */,
+				782E8A252A0622E6006F2BED /* ISSPositionResponse.swift */,
+				782E8A312A07808F006F2BED /* AstronautResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -321,8 +324,9 @@
 				782E8A242A061F3D006F2BED /* LocationManager.swift in Sources */,
 				782E8A222A061EE1006F2BED /* MapView.swift in Sources */,
 				782E89F22A060F61006F2BED /* MainView.swift in Sources */,
+				782E8A322A07808F006F2BED /* AstronautResponse.swift in Sources */,
 				782E89F02A060F61006F2BED /* ISS_LocationApp.swift in Sources */,
-				782E8A262A0622E6006F2BED /* ISSLocation.swift in Sources */,
+				782E8A262A0622E6006F2BED /* ISSPositionResponse.swift in Sources */,
 				782E8A302A062C55006F2BED /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

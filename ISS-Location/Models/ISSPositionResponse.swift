@@ -1,5 +1,5 @@
 //
-//  ISSLocation.swift
+//  ISSPositionResponse.swift
 //  ISS-Location
 //
 //  Created by Paul Ancajima on 5/5/23.
@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class ISSLocation: Object, Codable {
+class ISSPositionResponse: Object, Codable {
     @objc dynamic var position: ISSPosition?
     @objc dynamic var timestamp: Int = 0
     @objc dynamic var message: String = ""

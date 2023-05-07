@@ -10,32 +10,63 @@ import SwiftUI
 struct ISSInfoView: View {
     @ObservedObject var mainViewModel: MainViewModel
     var body: some View {
-        VStack {
-            Text("Info View")
-            List {
-                ForEach(mainViewModel.locations, id: \.timestamp) { location in
-                    Text("Lat: \(location.position?.latitude ?? "NA"), Long: \(location.position?.longitude ?? "NA")")
-                }
-                .onDelete(perform: delete)
-            }
+        VStack(alignment: .leading) {
+            let delta = String(format: "%.4f", mainViewModel.currentDistanceToISS)
+            Text("Current coordinates")
+                .bold()
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Text("Latitude: \(String(format: "%.4f", mainViewModel.fetchCurrentLocation().coordinate.latitude))")
+            Text("Longitude: \(String(format: "%.4f", mainViewModel.fetchCurrentLocation().coordinate.longitude))")
+                .padding(.bottom)
+            
+            Text("ISS coordinates")
+                .bold()
+            Text("Latitude: \(String(format: "%.4f", mainViewModel.currentISSLocation?.coordinate.latitude ?? 0.0))")
+            Text("Longitude: \(String(format: "%.4f", mainViewModel.currentISSLocation?.coordinate.longitude ?? 0.0))")
+                .padding(.bottom)
+            
+            Text("Distance to ISS (KM): \(delta) KM")
+            Spacer()
         }
-    }
-    func delete(at offsets: IndexSet) {
-        do {
-            if let realm = mainViewModel.realm {
-                try realm.write {
-                    realm.delete(mainViewModel.locations.filter({ offsets.contains(mainViewModel.locations.firstIndex(of: $0)!) }))
-                    mainViewModel.locations.remove(atOffsets: offsets)
-                }
-            }
-        } catch {
-            print(error)
-        }
+        .frame(maxWidth: .infinity)
+        .padding()
     }
 }
 
+
 struct ISSInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        ISSInfoView(mainViewModel: MainViewModel())
+        ISSInfoView(mainViewModel: testVM())
     }
+}
+
+
+@MainActor func testVM() -> MainViewModel {
+    let viewModel = MainViewModel()
+    let initialLongitude = "-122.45" // Starting longitude coordinate
+    let initialLatitude = "37.75" // Starting latitude coordinate
+    let increment = 0.01 // Increment by which to change the coordinates
+    
+    var currentLongitude = Double(initialLongitude)!
+    var currentLatitude = Double(initialLatitude)!
+    
+    var locations = [ISSPositionResponse]()
+    
+    for i in 0..<10 {
+        let location = ISSPositionResponse()
+        location.timestamp = i * 5 // 5 seconds apart
+        location.message = "Dummy location \(i)"
+        
+        let position = ISSPosition()
+        position.longitude = String(currentLongitude)
+        position.latitude = String(currentLatitude)
+        location.position = position
+        
+        currentLongitude += increment
+        currentLatitude += increment
+        
+        locations.append(location)
+    }
+    viewModel.locations = locations
+    return viewModel
 }

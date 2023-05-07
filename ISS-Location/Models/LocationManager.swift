@@ -10,7 +10,7 @@ import MapKit
 
 class LocationManager: NSObject {
     var locationManager: CLLocationManager?
-    @Published var region = MKCoordinateRegion(center: MapDetails.startingLocation, span: MapDetails.startingLocationSpan )
+    @Published var region = MKCoordinateRegion(center: MapDetails.startingLocation2D, span: MapDetails.startingLocationSpan)
 }
 
 extension LocationManager: ObservableObject, CLLocationManagerDelegate {
