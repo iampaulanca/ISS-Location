@@ -12,6 +12,8 @@ Features:
 - Added unit tests for ViewModel
 
 Roadmap:
+- Delete history capability
+- Fine tune known coordinates for easier scrolling
 - Guide to turn on services for location authorization if user has it turned off 
 - Increase unit test coverage and add UI testing
 
