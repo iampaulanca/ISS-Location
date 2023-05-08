@@ -8,6 +8,7 @@
 import Foundation
 import MapKit
 
+// LocationManager class which is responsible for managing location services
 class LocationManager: NSObject, ObservableObject {
     var locationManager: CLLocationManager?
     @Published var region = MKCoordinateRegion(center: MapDetails.startingLocation2D, span: MapDetails.startingLocationSpan)
@@ -15,6 +16,7 @@ class LocationManager: NSObject, ObservableObject {
 
 extension LocationManager: CLLocationManagerDelegate {
     
+    // Function to check if location services are enabled and initialize the CLLocationManager instance if they are
     func checkIfLocationServiceIsEnabled() {
         Task { @MainActor in
             if await locationServicesEnabled() {
@@ -30,10 +32,12 @@ extension LocationManager: CLLocationManagerDelegate {
         }
     }
     
+    // Function to check if location services are enabled. Needed to suppress iOS 16 warning
     func locationServicesEnabled() async -> Bool {
         CLLocationManager.locationServicesEnabled()
     }
     
+    // Private function to check the authorization status for location services and request permission if necessary
     private func checkLocationAuthorization() {
         guard let locationManager = locationManager else { return }
         switch locationManager.authorizationStatus {
@@ -54,7 +58,7 @@ extension LocationManager: CLLocationManagerDelegate {
         }
     }
     
-    // CLLocationManagerDelegate functions
+    // CLLocationManagerDelegate function to handle changes in authorization status
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuthorization()
     }
