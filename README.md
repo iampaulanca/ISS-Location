@@ -20,3 +20,5 @@ Features
 <img src="https://user-images.githubusercontent.com/39932781/236902755-59c0123b-5032-46ad-9e78-360eb2585b46.gif" width=300></img>
 </div>
 
+Roadmap :
+- Guide to turn on services for location authorization if user has it turned off.
