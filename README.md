@@ -4,11 +4,15 @@ ISS Location
 Prerequistes:
 - If you would like to know distance between user and ISS. User will need to accept location services authorization.
 
-Features
+Features:
 - Live updates for dataList
 - List of astronauts in space
 - Live updates in Map where ISS is located
 - Persisted history of ISS locations 
+
+Roadmap:
+- Guide to turn on services for location authorization if user has it turned off 
+
 <div>
 <img src="https://user-images.githubusercontent.com/39932781/236902040-aa414557-00ed-4293-a306-41faac4fceee.png" width=300></img>
 <img src="https://user-images.githubusercontent.com/39932781/236902154-89127b9d-b001-45f8-8edb-625482e8b0fa.png" width=300></img>
@@ -20,5 +24,6 @@ Features
 <img src="https://user-images.githubusercontent.com/39932781/236902755-59c0123b-5032-46ad-9e78-360eb2585b46.gif" width=300></img>
 </div>
 
-Roadmap :
-- Guide to turn on services for location authorization if user has it turned off.
+
+
+
