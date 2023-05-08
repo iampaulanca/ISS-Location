@@ -9,6 +9,7 @@ Features:
 - List of astronauts in space
 - Live updates in Map where ISS is located
 - Persisted history of ISS locations 
+- Autoremove data thats 2 weeks old
 - Added unit tests for ViewModel
 
 Roadmap:
