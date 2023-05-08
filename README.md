@@ -9,9 +9,11 @@ Features:
 - List of astronauts in space
 - Live updates in Map where ISS is located
 - Persisted history of ISS locations 
+- Added unit tests for ViewModel
 
 Roadmap:
 - Guide to turn on services for location authorization if user has it turned off 
+- Increase unit test coverage and add UI testing
 
 <div>
 <img src="https://user-images.githubusercontent.com/39932781/236902040-aa414557-00ed-4293-a306-41faac4fceee.png" width=300></img>
