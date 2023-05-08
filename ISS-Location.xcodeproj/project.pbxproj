@@ -24,6 +24,12 @@
 		782E8A322A07808F006F2BED /* AstronautResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A312A07808F006F2BED /* AstronautResponse.swift */; };
 		782E8A342A07854C006F2BED /* AstronautListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A332A07854C006F2BED /* AstronautListView.swift */; };
 		782E8A372A07F9BE006F2BED /* Int+dateToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A362A07F9BE006F2BED /* Int+dateToString.swift */; };
+		782E8A462A097E77006F2BED /* MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A452A097E77006F2BED /* MainViewModelTests.swift */; };
+		784FA5F52A0981C300F55D01 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 784FA5F42A0981C300F55D01 /* RealmSwift */; };
+		784FA5F72A0981C700F55D01 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 784FA5F62A0981C700F55D01 /* Realm */; };
+		784FA5F92A0982A800F55D01 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 784FA5F82A0982A800F55D01 /* RealmSwift */; };
+		784FA5FB2A0982AB00F55D01 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 784FA5FA2A0982AB00F55D01 /* Realm */; };
+		784FA5FC2A0984D100F55D01 /* MainViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A482A097F64006F2BED /* MainViewModelMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +69,8 @@
 		782E8A312A07808F006F2BED /* AstronautResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronautResponse.swift; sourceTree = "<group>"; };
 		782E8A332A07854C006F2BED /* AstronautListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronautListView.swift; sourceTree = "<group>"; };
 		782E8A362A07F9BE006F2BED /* Int+dateToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+dateToString.swift"; sourceTree = "<group>"; };
+		782E8A452A097E77006F2BED /* MainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelTests.swift; sourceTree = "<group>"; };
+		782E8A482A097F64006F2BED /* MainViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelMock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +87,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				784FA5F72A0981C700F55D01 /* Realm in Frameworks */,
+				784FA5F52A0981C300F55D01 /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +96,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				784FA5FB2A0982AB00F55D01 /* Realm in Frameworks */,
+				784FA5F92A0982A800F55D01 /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +111,7 @@
 				782E8A042A060F62006F2BED /* ISS-LocationTests */,
 				782E8A0E2A060F62006F2BED /* ISS-LocationUITests */,
 				782E89ED2A060F61006F2BED /* Products */,
+				782E8A382A097C8D006F2BED /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -122,6 +135,7 @@
 				782E8A352A07F9A4006F2BED /* Extentions */,
 				782E89F32A060F62006F2BED /* Assets.xcassets */,
 				782E89EF2A060F61006F2BED /* ISS_LocationApp.swift */,
+				782E8A472A097F56006F2BED /* Mocks */,
 				782E89F52A060F62006F2BED /* Preview Content */,
 			);
 			path = "ISS-Location";
@@ -139,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				782E8A052A060F62006F2BED /* ISS_LocationTests.swift */,
+				782E8A452A097E77006F2BED /* MainViewModelTests.swift */,
 			);
 			path = "ISS-LocationTests";
 			sourceTree = "<group>";
@@ -189,6 +204,21 @@
 			path = Extentions;
 			sourceTree = "<group>";
 		};
+		782E8A382A097C8D006F2BED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		782E8A472A097F56006F2BED /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				782E8A482A097F64006F2BED /* MainViewModelMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -227,6 +257,10 @@
 				782E8A032A060F62006F2BED /* PBXTargetDependency */,
 			);
 			name = "ISS-LocationTests";
+			packageProductDependencies = (
+				784FA5F42A0981C300F55D01 /* RealmSwift */,
+				784FA5F62A0981C700F55D01 /* Realm */,
+			);
 			productName = "ISS-LocationTests";
 			productReference = 782E8A012A060F62006F2BED /* ISS-LocationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -245,6 +279,10 @@
 				782E8A0D2A060F62006F2BED /* PBXTargetDependency */,
 			);
 			name = "ISS-LocationUITests";
+			packageProductDependencies = (
+				784FA5F82A0982A800F55D01 /* RealmSwift */,
+				784FA5FA2A0982AB00F55D01 /* Realm */,
+			);
 			productName = "ISS-LocationUITests";
 			productReference = 782E8A0B2A060F62006F2BED /* ISS-LocationUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -328,6 +366,7 @@
 			files = (
 				782E8A342A07854C006F2BED /* AstronautListView.swift in Sources */,
 				782E8A2E2A062C11006F2BED /* ISSInfoView.swift in Sources */,
+				784FA5FC2A0984D100F55D01 /* MainViewModelMock.swift in Sources */,
 				782E8A242A061F3D006F2BED /* LocationManager.swift in Sources */,
 				782E8A372A07F9BE006F2BED /* Int+dateToString.swift in Sources */,
 				782E8A222A061EE1006F2BED /* MapView.swift in Sources */,
@@ -344,6 +383,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				782E8A062A060F62006F2BED /* ISS_LocationTests.swift in Sources */,
+				782E8A462A097E77006F2BED /* MainViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,6 +726,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 782E8A282A062A28006F2BED /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		784FA5F42A0981C300F55D01 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 782E8A282A062A28006F2BED /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		784FA5F62A0981C700F55D01 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 782E8A282A062A28006F2BED /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		784FA5F82A0982A800F55D01 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 782E8A282A062A28006F2BED /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		784FA5FA2A0982AB00F55D01 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 782E8A282A062A28006F2BED /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

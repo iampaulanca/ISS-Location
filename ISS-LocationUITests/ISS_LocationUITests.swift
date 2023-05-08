@@ -6,6 +6,7 @@
 //
 
 import XCTest
+//@testable import ISS_Location
 
 final class ISS_LocationUITests: XCTestCase {
 
