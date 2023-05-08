@@ -112,7 +112,7 @@ struct MapUIViewRepresentable: UIViewRepresentable {
             let existingAnnotation = view.annotations.first { $0.title == Constants.issPositionHistory } as? MKPointAnnotation
             if let existingAnnotation = existingAnnotation {
                 existingAnnotation.subtitle = annotation.subtitle
-                var tempCoordinate = existingAnnotation.coordinate
+                let tempCoordinate = existingAnnotation.coordinate
                 existingAnnotation.coordinate = annotation.coordinate
                 let updateRegion = MKCoordinateRegion(center: existingAnnotation.coordinate, span: MapDetails.historyLocationSpan)
                 if tempCoordinate.latitude != lat && tempCoordinate.longitude != long {

@@ -13,13 +13,13 @@ import MapKit
 struct MainView: View {
     // Create an instance of MainViewModel, which will store all the data used in the app.
     @ObservedObject var mainViewModel = MainViewModel()
-
+    
     // State variable to track if the initial load of data is completed.
     @State var initialLoadCompleted = false
-
+    
     // Timer to update the ISS location every 5 seconds.
     let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
-
+    
     var body: some View {
         // Create a TabView with three tabs: ISSInfoView, AstronautListView, and MapView.
         TabView {
@@ -36,7 +36,7 @@ struct MainView: View {
                     Image(systemName: "info.circle")
                     Text("ISS Location")
                 }
-
+            
             // AstronautListView tab shows the list of astronauts currently on the ISS.
             AstronautListView(mainViewModel: mainViewModel)
                 .tabItem {
@@ -44,7 +44,7 @@ struct MainView: View {
                     Image(systemName: "person.crop.circle.fill")
                     Text("Astronauts")
                 }
-
+            
             // MapView tab shows the current location of the ISS on a map.
             MapView(mainViewModel: mainViewModel)
                 .tabItem {

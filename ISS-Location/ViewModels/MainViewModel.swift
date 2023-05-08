@@ -31,7 +31,6 @@ extension MainViewModelErrors: LocalizedError {
     }
 }
 
-
 @MainActor class MainViewModel: ObservableObject {
     // Observes changes to the location manager instance
     @ObservedObject var locationViewManager = LocationManager()
@@ -63,43 +62,42 @@ extension MainViewModelErrors: LocalizedError {
     // Indicates whether the view model is currently loading data
     @Published var isLoading = false
     
-    
-        init() {
-            do {
-                // Fetches the history of ISS locations and deletes any old objects
-                try fetchHistory()
-                try deleteOldObjects()
-            } catch {
-                // If an error occurs, display an alert with the error message
-                alertShow = true
-                alertMessage = "\(error)"
-            }
+    init() {
+        do {
+            // Fetches the history of ISS locations and deletes any old objects
+            try fetchHistory()
+            try deleteOldObjects()
+        } catch {
+            // If an error occurs, display an alert with the error message
+            alertShow = true
+            alertMessage = "\(error)"
         }
+    }
     
     // Fetches data from the local database
-        func fetchHistory() throws {
-            do {
-                let realm = try Realm()
-                self.realm = realm
-                
-                // Retrieves all saved ISS locations and sorts them by timestamp
-                let locationsInMemory = realm.objects(ISSPositionResponse.self)
-                let sortedLocations = locationsInMemory.sorted(byKeyPath: "timestamp", ascending: true)
-                self.issPositionHistory = Array(sortedLocations)
-                
-                // Converts each ISS location to a CLLocationCoordinate2D object and appends it to the locations array
-                for location in sortedLocations {
-                    if let lat = Double(location.position?.latitude ?? ""), let long = Double(location.position?.longitude ?? "") {
-                        let coreLocation2D = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                        locations.append(coreLocation2D)
-                    }
-                }
-            } catch {
-                // If an error occurs, throw a MainViewModelErrors.databaseError with the error message
-                throw MainViewModelErrors.databaseError(error.localizedDescription)
-            }
+    func fetchHistory() throws {
+        do {
+            let realm = try Realm()
+            self.realm = realm
             
+            // Retrieves all saved ISS locations and sorts them by timestamp
+            let locationsInMemory = realm.objects(ISSPositionResponse.self)
+            let sortedLocations = locationsInMemory.sorted(byKeyPath: "timestamp", ascending: true)
+            self.issPositionHistory = Array(sortedLocations)
+            
+            // Converts each ISS location to a CLLocationCoordinate2D object and appends it to the locations array
+            for location in sortedLocations {
+                if let lat = Double(location.position?.latitude ?? ""), let long = Double(location.position?.longitude ?? "") {
+                    let coreLocation2D = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                    locations.append(coreLocation2D)
+                }
+            }
+        } catch {
+            // If an error occurs, throw a MainViewModelErrors.databaseError with the error message
+            throw MainViewModelErrors.databaseError(error.localizedDescription)
         }
+        
+    }
     
     // fetch current ISS position
     @discardableResult
@@ -113,7 +111,7 @@ extension MainViewModelErrors: LocalizedError {
             let issLocation = try JSONDecoder().decode(ISSPositionResponse.self, from: data)
             // if the position data exists, set the current ISS location to that position and update the map view accordingly
             if let issLocation = issLocation.position, let lat = Double(issLocation.latitude), let long = Double(issLocation.longitude) {
-                 currentISSLocation = CLLocation(latitude: lat, longitude: long)
+                currentISSLocation = CLLocation(latitude: lat, longitude: long)
                 locationViewManager.region.center = CLLocationCoordinate2D(latitude: lat, longitude: long)
             }
             // save the ISS position data for later use
@@ -125,7 +123,7 @@ extension MainViewModelErrors: LocalizedError {
             throw MainViewModelErrors.networkError("\(error.localizedDescription)")
         }
     }
-
+    
     // fetch current astronauts in space
     @discardableResult
     func fetchAstronautsOnISS() async throws -> [Astronaut] {
@@ -146,13 +144,13 @@ extension MainViewModelErrors: LocalizedError {
             throw MainViewModelErrors.networkError("\(error.localizedDescription)")
         }
     }
-
+    
     // fetch user's current location
     func fetchUsersCurrentLocation() -> CLLocation {
         // get the user's location from the location manager, or return the default starting location if the location is not available
         return locationViewManager.locationManager?.location ?? MapDetails.startingLocation
     }
-
+    
     // calculate distance to ISS from user's current position
     // if the user's current position is not available, use Apple's Cupertino HQ as default
     func calculateDistanceToISS() async throws {
@@ -180,7 +178,7 @@ extension MainViewModelErrors: LocalizedError {
             throw error
         }
     }
-
+    
     // Delete cache that's 2 weeks old
     private func deleteOldObjects() throws {
         do {
@@ -199,5 +197,5 @@ extension MainViewModelErrors: LocalizedError {
             self.alertMessage = "Unable to delete cache"
         }
     }
-
+    
 }
