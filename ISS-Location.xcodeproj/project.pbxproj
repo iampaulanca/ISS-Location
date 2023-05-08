@@ -11,7 +11,6 @@
 		782E89F22A060F61006F2BED /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E89F12A060F61006F2BED /* MainView.swift */; };
 		782E89F42A060F62006F2BED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 782E89F32A060F62006F2BED /* Assets.xcassets */; };
 		782E89F72A060F62006F2BED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 782E89F62A060F62006F2BED /* Preview Assets.xcassets */; };
-		782E8A062A060F62006F2BED /* ISS_LocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A052A060F62006F2BED /* ISS_LocationTests.swift */; };
 		782E8A102A060F62006F2BED /* ISS_LocationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A0F2A060F62006F2BED /* ISS_LocationUITests.swift */; };
 		782E8A122A060F62006F2BED /* ISS_LocationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A112A060F62006F2BED /* ISS_LocationUITestsLaunchTests.swift */; };
 		782E8A222A061EE1006F2BED /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E8A212A061EE1006F2BED /* MapView.swift */; };
@@ -56,7 +55,6 @@
 		782E89F32A060F62006F2BED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		782E89F62A060F62006F2BED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		782E8A012A060F62006F2BED /* ISS-LocationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ISS-LocationTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		782E8A052A060F62006F2BED /* ISS_LocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISS_LocationTests.swift; sourceTree = "<group>"; };
 		782E8A0B2A060F62006F2BED /* ISS-LocationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ISS-LocationUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		782E8A0F2A060F62006F2BED /* ISS_LocationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISS_LocationUITests.swift; sourceTree = "<group>"; };
 		782E8A112A060F62006F2BED /* ISS_LocationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISS_LocationUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -152,7 +150,6 @@
 		782E8A042A060F62006F2BED /* ISS-LocationTests */ = {
 			isa = PBXGroup;
 			children = (
-				782E8A052A060F62006F2BED /* ISS_LocationTests.swift */,
 				782E8A452A097E77006F2BED /* MainViewModelTests.swift */,
 			);
 			path = "ISS-LocationTests";
@@ -382,7 +379,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				782E8A062A060F62006F2BED /* ISS_LocationTests.swift in Sources */,
 				782E8A462A097E77006F2BED /* MainViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
