@@ -13,6 +13,7 @@ enum MapDetails {
     static let startingLocation = CLLocation(latitude: 37.331516, longitude: -121.891054)
     static let startingLocationSpan = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
     static let historyLocationSpan = MKCoordinateSpan(latitudeDelta: 5.0, longitudeDelta: 5.0)
+    static let maxLocationSpan = MKCoordinateSpan(latitudeDelta:130, longitudeDelta: 130)
 }
 
 struct MapView: View {
@@ -46,7 +47,7 @@ struct MapView: View {
             }
             
             // MapUIViewRepresentable to display the map and annotations
-            MapUIViewRepresentable(region: mainViewModel.locationViewManager.region, lineCoordinates: $mainViewModel.locations, knownLocation: $knownLocation)
+            MapUIViewRepresentable(region: mainViewModel.locationViewManager.region, knownPositions: $mainViewModel.issPositionHistory, knownPosition: $knownLocation)
                 .ignoresSafeArea()
         }
         
@@ -68,8 +69,8 @@ struct MapUIViewRepresentable: UIViewRepresentable {
     
     // Map view properties
     let region: MKCoordinateRegion
-    @Binding var lineCoordinates: [CLLocationCoordinate2D]
-    @Binding var knownLocation: ISSPositionResponse?
+    @Binding var knownPositions: [ISSPositionResponse]
+    @Binding var knownPosition: ISSPositionResponse?
     
     // Create the initial map view
     func makeUIView(context: Context) -> MKMapView {
@@ -78,16 +79,15 @@ struct MapUIViewRepresentable: UIViewRepresentable {
         mapView.region = region
         mapView.showsUserLocation = true
         
-        let polyline = MKPolyline(coordinates: lineCoordinates, count: lineCoordinates.count)
-        mapView.addOverlay(polyline)
+        let processedPolyLines = processPolyLines(knownPositions: knownPositions)
+        for processedPolyLine in processedPolyLines {
+            mapView.addOverlay(processedPolyLine)
+        }
         return mapView
     }
     
     // Update the map view with new data
     func updateUIView(_ view: MKMapView, context: Context) {
-        let polyline = MKPolyline(coordinates: lineCoordinates, count: lineCoordinates.count)
-        view.removeOverlays(view.overlays)
-        view.addOverlay(polyline)
                 
         // Add or update the ISS annotation
         let existingAnnotation = view.annotations.first { $0.title == Constants.iss } as? MKPointAnnotation
@@ -102,7 +102,7 @@ struct MapUIViewRepresentable: UIViewRepresentable {
         }
         
         // Add a location history annotation
-        if let position = knownLocation?.position, let lat = Double(position.latitude), let long = Double(position.longitude), let timestamp = knownLocation?.timestamp {
+        if let position = knownPosition?.position, let lat = Double(position.latitude), let long = Double(position.longitude), let timestamp = knownPosition?.timestamp {
             let annotation = MKPointAnnotation()
             annotation.title = Constants.issPositionHistory
             annotation.subtitle =  Date(timeIntervalSince1970: TimeInterval(timestamp)).formatted(date: .abbreviated, time: .shortened)
@@ -114,7 +114,7 @@ struct MapUIViewRepresentable: UIViewRepresentable {
                 existingAnnotation.subtitle = annotation.subtitle
                 let tempCoordinate = existingAnnotation.coordinate
                 existingAnnotation.coordinate = annotation.coordinate
-                let updateRegion = MKCoordinateRegion(center: existingAnnotation.coordinate, span: MapDetails.historyLocationSpan)
+                let updateRegion = MKCoordinateRegion(center: existingAnnotation.coordinate, span: MapDetails.maxLocationSpan)
                 if tempCoordinate.latitude != lat && tempCoordinate.longitude != long {
                     view.setRegion(updateRegion, animated: true)
                 }
@@ -122,6 +122,57 @@ struct MapUIViewRepresentable: UIViewRepresentable {
                 view.addAnnotation(annotation)
             }
         }
+        
+        let processedPolyLines = processPolyLines(knownPositions: knownPositions)
+        view.removeOverlays(view.overlays)
+        for processedPolyLine in processedPolyLines {
+            view.addOverlay(processedPolyLine)
+        }
+    }
+    
+    /**
+     Converts an `ISSPositionResponse` to a `CLLocationCoordinate2D` object.
+     
+     - Parameter issPositionReponse: An `ISSPositionResponse` object that contains position information.
+     - Returns: A `CLLocationCoordinate2D` object if `position` property is not `nil`, `nil` otherwise.
+     */
+    private func makeCLLocation2DFrom(_ issPositionReponse: ISSPositionResponse) -> CLLocationCoordinate2D? {
+        if let position = issPositionReponse.position {
+            let lat = Double(position.latitude) ?? 0.0
+            let long = Double(position.longitude) ?? 0.0
+            return CLLocationCoordinate2D(latitude: lat, longitude: long)
+        }
+        return nil
+    }
+    
+    /**
+     Processes an array of `ISSPositionResponse` objects and returns an array of `MKPolyline` objects.
+     
+     - Parameter knownPositions: An array of `ISSPositionResponse` objects that contain position information.
+     - Returns: An array of `MKPolyline` objects that connect the coordinates from `knownPositions` array.
+     */
+    private func processPolyLines(knownPositions: [ISSPositionResponse]) -> [MKPolyline] {
+        var ret = [MKPolyline]()
+        var tempCoordinates = [CLLocationCoordinate2D]()
+        for i in 0..<knownPositions.count - 1 {
+            if let position = knownPositions[i].position{
+                let lat = Double(position.latitude) ?? 0.0
+                let long = Double(position.longitude) ?? 0.0
+                let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                if (knownPositions[i+1].timestamp - knownPositions[i].timestamp) > 30  {
+                    // start a new tempCoordinate
+                    ret.append(MKPolyline(coordinates: tempCoordinates, count: tempCoordinates.count))
+                    tempCoordinates = []
+                } else {
+                    tempCoordinates.append(coordinate)
+                }
+            }
+        }
+        
+        if !tempCoordinates.isEmpty {
+            ret.append(MKPolyline(coordinates: tempCoordinates, count: tempCoordinates.count))
+        }
+        return ret
     }
     
     // Create a coordinator to handle map view delegate methods
