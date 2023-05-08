@@ -2,8 +2,7 @@
 ISS Location
 
 Prerequistes:
-- If you would like to know distance between user and ISS. User will need to accept locations authorization
-- 
+- If you would like to know distance between user and ISS. User will need to accept location services authorization.
 
 Features
 - Live updates for dataList
