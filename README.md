@@ -17,7 +17,6 @@ Roadmap:
 - Fine tune known coordinates for easier scrolling
 - Guide to turn on services for location authorization if user has it turned off 
 - Increase unit test coverage and add UI testing
-
 <div>
 <img src="https://user-images.githubusercontent.com/39932781/236902040-aa414557-00ed-4293-a306-41faac4fceee.png" width=300></img>
 <img src="https://user-images.githubusercontent.com/39932781/236902154-89127b9d-b001-45f8-8edb-625482e8b0fa.png" width=300></img>
