@@ -2,7 +2,7 @@
 ISS Location
 
 Prerequistes:
-- If you would like to know distance between user and ISS. User will need to accept location services authorization.
+- If you would like to know distance between user and ISS. User will need to accept location services authorization, otherwise this will default to Apple HQ
 
 Features:
 - Live updates for dataList
