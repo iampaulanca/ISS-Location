@@ -29,7 +29,21 @@ struct ISSInfoView: View {
             Text("Longitude: \(String(format: "%.4f", mainViewModel.currentISSLocation?.coordinate.longitude ?? 0.0))")
                 .padding(.bottom)
             Text("Distance to ISS: ").bold() + Text("\(String(format: "%.4f", mainViewModel.currentDistanceToISS))KM")
-            Spacer()
+            Text("ISS Location History")
+                .bold()
+                .padding(.top)
+                .frame(maxWidth: .infinity, alignment: .center)
+            List {
+                ForEach(mainViewModel.issPositionHistory, id: \.timestamp ) { location in
+                    VStack(alignment: .leading) {
+                        Text("Time: \(location.timestamp.dateToString())")
+                        Text("Lat: \(location.position?.latitude ?? "NA")")
+                        Text("Long: \(location.position?.longitude ?? "NA")")
+                    }
+                }
+            }
+            .listStyle(.plain)
+            
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal)

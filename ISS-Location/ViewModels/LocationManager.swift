@@ -45,7 +45,7 @@ extension LocationManager: CLLocationManagerDelegate {
             print("alert you have denied. go into settings and change application ")
         case .authorizedAlways, .authorizedWhenInUse:
             if let coordinate = locationManager.location?.coordinate {
-                region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+                region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
             } else {
                 print("alert unable to get coordinate")
             }
