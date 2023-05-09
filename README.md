@@ -24,11 +24,9 @@ Roadmap:
 <img src="https://user-images.githubusercontent.com/39932781/236902272-3d491dd1-0413-43e5-8396-1de456c78a36.png" width=300></img>
 </div>
 <div>
-<img src="https://user-images.githubusercontent.com/39932781/236902505-dc85f042-d230-4eb9-95c7-734708bd2df5.gif" width=300></img>
-<img src="https://user-images.githubusercontent.com/39932781/236902647-e9b8b81b-9d33-45fb-9a10-36e368731fec.gif" width=300></img>
+
+<img src="https://user-images.githubusercontent.com/39932781/237010470-9c392487-7856-4441-9c3a-8d712e68922e.gif" width=300></img>
+<img src="https://user-images.githubusercontent.com/39932781/237010843-288d2e2e-235d-49cf-8fef-e95473eb8237.gif" width=300></img>
 <img src="https://user-images.githubusercontent.com/39932781/236902755-59c0123b-5032-46ad-9e78-360eb2585b46.gif" width=300></img>
 </div>
-
-
-
 
