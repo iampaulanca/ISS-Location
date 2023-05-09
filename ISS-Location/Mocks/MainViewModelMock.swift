@@ -17,15 +17,6 @@ import CoreLocation
     var fetchHistorySuper = false
     /// TODO: add more error handling, add more stubs
     
-    override var locations: [CLLocationCoordinate2D] {
-        get {
-            dummyLocations()
-        }
-        set {
-            super.locations = newValue
-        }
-    }
-    
     override func fetchHistory() throws {
         guard fetchHistoryError == nil else { throw MainViewModelErrors.databaseError("somethign went wrong") }
         if fetchHistorySuper {

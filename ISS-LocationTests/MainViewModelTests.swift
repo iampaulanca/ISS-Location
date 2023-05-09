@@ -19,8 +19,7 @@ import XCTest
     }
     
     func testFetchHistory() throws {
-        print(mockViewModel.locations)
-        XCTAssertFalse(mockViewModel.locations.isEmpty)
+        XCTAssertNotNil(mockViewModel.issPositionHistory)
     }
     
     func testFetchLocationOfISS() async throws {

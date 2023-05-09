@@ -23,7 +23,7 @@ struct MapView: View {
     // Index of known location for slider
     @State private var knownPositionIndex: Double = 0.0
     
-    // State variable to hold ISS position
+    // State variable to hold ISS position. Used as annotation in MapViewUIRepresentable
     @State private var knownPosition: ISSPositionResponse? = nil
     
     // Initialize the MapView with a MainViewModel and a known location index
@@ -169,11 +169,11 @@ struct MapUIViewRepresentable: UIViewRepresentable {
         var ret = [MKPolyline]()
         var tempCoordinates = [CLLocationCoordinate2D]()
         for i in 0..<knownPositions.count - 1 {
-            if let position = knownPositions[i].position{
+            if let position = knownPositions[i].position {
                 let lat = Double(position.latitude) ?? 0.0
                 let long = Double(position.longitude) ?? 0.0
                 let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                if (knownPositions[i+1].timestamp - knownPositions[i].timestamp) > 30  {
+                if (knownPositions[i+1].timestamp - knownPositions[i].timestamp) > 30 {
                     // start a new tempCoordinate
                     ret.append(MKPolyline(coordinates: tempCoordinates, count: tempCoordinates.count))
                     tempCoordinates = []

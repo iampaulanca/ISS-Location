@@ -14,14 +14,8 @@ import CoreLocation
     // Observes changes to the location manager instance
     @ObservedObject var locationViewManager = LocationManager()
     
-    // The current Realm instance being used by the view model
-    @Published private var realm: Realm?
-    
     // An array of all previously fetched ISS locations
     @Published var issPositionHistory = [ISSPositionResponse]()
-    
-    // An array of CLLocationCoordinate2D objects representing each ISS location
-    @Published var locations = [CLLocationCoordinate2D]()
     
     // The most recent location of the ISS
     @Published var currentISSLocation: CLLocation?
@@ -57,20 +51,10 @@ import CoreLocation
     func fetchHistory() throws {
         do {
             let realm = try Realm()
-            self.realm = realm
-            
             // Retrieves all saved ISS locations and sorts them by timestamp
             let locationsInMemory = realm.objects(ISSPositionResponse.self)
             let sortedLocations = locationsInMemory.sorted(byKeyPath: "timestamp", ascending: true)
             self.issPositionHistory = Array(sortedLocations)
-            
-            // Converts each ISS location to a CLLocationCoordinate2D object and appends it to the locations array
-            for location in sortedLocations {
-                if let lat = Double(location.position?.latitude ?? ""), let long = Double(location.position?.longitude ?? "") {
-                    let coreLocation2D = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                    locations.append(coreLocation2D)
-                }
-            }
         } catch {
             // If an error occurs, throw a MainViewModelErrors.databaseError with the error message
             throw MainViewModelErrors.databaseError(error.localizedDescription)
@@ -133,11 +117,16 @@ import CoreLocation
     // calculate distance to ISS from user's current position
     // if the user's current position is not available, use Apple's Cupertino HQ as default
     func calculateDistanceToISS() async throws {
-        // fetch the current ISS position
-        try await fetchLocationOfISS()
-        // if the current ISS position is available, calculate the distance to the user's current location
-        guard let currentISSLocation = currentISSLocation else { throw MainViewModelErrors.noISSLocation }
-        currentDistanceToISS = currentISSLocation.distance(from: fetchUsersCurrentLocation()) / 1000
+        do {
+            // fetch the current ISS position
+            try await fetchLocationOfISS()
+            // if the current ISS position is available, calculate the distance to the user's current location
+            guard let currentISSLocation = currentISSLocation else { throw MainViewModelErrors.noISSLocation }
+            currentDistanceToISS = currentISSLocation.distance(from: fetchUsersCurrentLocation()) / 1000
+        } catch {
+            alertShow = true
+            alertMessage = error.localizedDescription
+        }
     }
     
     // save new positions in database
@@ -149,7 +138,6 @@ import CoreLocation
                 // Append location to locations array if latitude and longitude are not nil
                 if let lat = Double(issLocation.position?.latitude ?? ""), let long = Double(issLocation.position?.longitude ?? "") {
                     let coreLocation2D = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                    locations.append(coreLocation2D)
                     issPositionHistory.append(issLocation)
                 }
             }
