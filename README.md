@@ -5,11 +5,11 @@ Prerequistes:
 - If you would like to know distance between user and ISS. User will need to accept location services authorization, otherwise this will default to Apple HQ
 
 Features:
-- Live updates for dataList
+- Live ISS position updates
 - List of astronauts in space
-- Live updates in Map where ISS is located
+- Live Map updates for ISS position
 - Persisted history of ISS locations 
-- Autoremove data thats 2 weeks old
+- Auto-remove data thats 2 weeks old
 - Added unit tests for ViewModel
 
 Roadmap:
