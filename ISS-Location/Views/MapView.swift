@@ -21,40 +21,42 @@ struct MapView: View {
     @ObservedObject var mainViewModel: MainViewModel
     
     // Index of known location for slider
-    @State private var knownLocationIndex: Double = 0.0
+    @State private var knownPositionIndex: Double = 0.0
     
     // State variable to hold ISS position
-    @State private var knownLocation: ISSPositionResponse? = nil
+    @State private var knownPosition: ISSPositionResponse? = nil
     
     // Initialize the MapView with a MainViewModel and a known location index
     init(mainViewModel: MainViewModel, knownLocation: Double = 0.0) {
         self.mainViewModel = mainViewModel
-        
         // Set the initial known location if the ISS position history is not empty
         if mainViewModel.issPositionHistory.count > 0 {
-            _knownLocation = State(initialValue: mainViewModel.issPositionHistory[0])
+            _knownPosition = State(initialValue: mainViewModel.issPositionHistory[0])
         }
     }
     
     var body: some View {
         VStack {
             // Slider to select known location
-            VStack {
-                Text("Known Locations")
-                Slider(value: $knownLocationIndex, in: 0...Double(mainViewModel.issPositionHistory.count-1), step: 1.0)
+            VStack(alignment: .leading) {
+                Text("Previous Positions of ISS")
+                    .bold()
+                Text("Time: \(mainViewModel.issPositionHistory[Int(knownPositionIndex)].timestamp.dateToString())")
+                Text("Latitude: \(mainViewModel.issPositionHistory[Int(knownPositionIndex)].position?.latitude ?? "NA")")
+                Text("Longitude: \(mainViewModel.issPositionHistory[Int(knownPositionIndex)].position?.latitude ?? "NA")")
+                Slider(value: $knownPositionIndex, in: 0...Double(mainViewModel.issPositionHistory.count-1), step: 1.0)
                     .padding(.horizontal)
                     .disabled(mainViewModel.issPositionHistory.isEmpty)
             }
-            
+            .padding(.horizontal)
             // MapUIViewRepresentable to display the map and annotations
-            MapUIViewRepresentable(region: mainViewModel.locationViewManager.region, knownPositions: $mainViewModel.issPositionHistory, knownPosition: $knownLocation)
+            MapUIViewRepresentable(mainViewModel: mainViewModel, knownPosition: $knownPosition)
                 .ignoresSafeArea()
         }
-        
         // Update known location when slider value changes
-        .onChange(of: knownLocationIndex) { newValue in
+        .onChange(of: knownPositionIndex) { newValue in
             let index = Int(newValue)
-            knownLocation = mainViewModel.issPositionHistory[index]
+            knownPosition = mainViewModel.issPositionHistory[index]
         }
     }
 }
@@ -68,29 +70,42 @@ struct MapUIViewRepresentable: UIViewRepresentable {
     }
     
     // Map view properties
-    let region: MKCoordinateRegion
-    @Binding var knownPositions: [ISSPositionResponse]
+    @ObservedObject var mainViewModel: MainViewModel
     @Binding var knownPosition: ISSPositionResponse?
+    var region: MKCoordinateRegion?
+    var knownPositions: [ISSPositionResponse] = []
+    
+    init(mainViewModel: MainViewModel, knownPosition: Binding<ISSPositionResponse?>) {
+        self.mainViewModel = mainViewModel
+        self.knownPositions = mainViewModel.issPositionHistory
+        self._knownPosition = knownPosition
+        self.region = mainViewModel.locationViewManager.region
+    }
     
     // Create the initial map view
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
-        mapView.region = region
+        mapView.region = mainViewModel.locationViewManager.region
         mapView.showsUserLocation = true
-        
         let processedPolyLines = processPolyLines(knownPositions: knownPositions)
         for processedPolyLine in processedPolyLines {
             mapView.addOverlay(processedPolyLine)
+        }
+        if let currentISSCoordinate = mainViewModel.currentISSLocation {
+            let currentISSCoordinate = CLLocationCoordinate2D(latitude: currentISSCoordinate.coordinate.latitude, longitude: currentISSCoordinate.coordinate.longitude)
+            let currentRegion = MKCoordinateRegion(center: currentISSCoordinate, span: MapDetails.maxLocationSpan)
+            mapView.setRegion(currentRegion, animated: true)
         }
         return mapView
     }
     
     // Update the map view with new data
     func updateUIView(_ view: MKMapView, context: Context) {
-                
+
         // Add or update the ISS annotation
         let existingAnnotation = view.annotations.first { $0.title == Constants.iss } as? MKPointAnnotation
+        guard let region = region else { return }
         if let existingAnnotation = existingAnnotation {
             existingAnnotation.coordinate = CLLocationCoordinate2D(latitude: region.center.latitude, longitude: region.center.longitude)
         } else {
@@ -112,10 +127,9 @@ struct MapUIViewRepresentable: UIViewRepresentable {
             let existingAnnotation = view.annotations.first { $0.title == Constants.issPositionHistory } as? MKPointAnnotation
             if let existingAnnotation = existingAnnotation {
                 existingAnnotation.subtitle = annotation.subtitle
-                let tempCoordinate = existingAnnotation.coordinate
-                existingAnnotation.coordinate = annotation.coordinate
-                let updateRegion = MKCoordinateRegion(center: existingAnnotation.coordinate, span: MapDetails.maxLocationSpan)
-                if tempCoordinate.latitude != lat && tempCoordinate.longitude != long {
+                if existingAnnotation.coordinate.latitude != annotation.coordinate.latitude && existingAnnotation.coordinate.longitude != annotation.coordinate.longitude {
+                    existingAnnotation.coordinate = annotation.coordinate
+                    let updateRegion = MKCoordinateRegion(center: existingAnnotation.coordinate, span: MapDetails.maxLocationSpan)
                     view.setRegion(updateRegion, animated: true)
                 }
             } else {
@@ -170,6 +184,11 @@ struct MapUIViewRepresentable: UIViewRepresentable {
         }
         
         if !tempCoordinates.isEmpty {
+            // add current coordinate to temp coordinates
+            if let currentISSCoordinate = mainViewModel.currentISSLocation {
+                let currentISSCoordinate = CLLocationCoordinate2D(latitude: currentISSCoordinate.coordinate.latitude, longitude: currentISSCoordinate.coordinate.longitude)
+                tempCoordinates.append(currentISSCoordinate)
+            }
             ret.append(MKPolyline(coordinates: tempCoordinates, count: tempCoordinates.count))
         }
         return ret
