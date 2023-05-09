@@ -10,27 +10,6 @@ import SwiftUI
 import RealmSwift
 import CoreLocation
 
-enum MainViewModelErrors: Error {
-    case networkError(String)
-    case databaseError(String)
-    case urlMissing
-    case noISSLocation
-}
-extension MainViewModelErrors: LocalizedError {
-    public var errorDescription: String? {
-        switch self {
-        case let .networkError(string):
-            return "Failed network request reason: \(string)"
-        case let .databaseError(string):
-            return "Database error reason: \(string)"
-        case .urlMissing:
-            return "URL is missing or invalid"
-        case .noISSLocation:
-            return "No ISS Locations found"
-        }
-    }
-}
-
 @MainActor class MainViewModel: ObservableObject {
     // Observes changes to the location manager instance
     @ObservedObject var locationViewManager = LocationManager()
@@ -175,7 +154,9 @@ extension MainViewModelErrors: LocalizedError {
                 }
             }
         } catch {
-            throw error
+            // Show an alert if there was an error deleting old objects
+            self.alertShow = true
+            self.alertMessage = "Unable to delete cache: \(error.localizedDescription)"
         }
     }
     
@@ -192,9 +173,8 @@ extension MainViewModelErrors: LocalizedError {
             }
         } catch {
             // Show an alert if there was an error deleting old objects
-            print("error \(error)")
             self.alertShow = true
-            self.alertMessage = "Unable to delete cache"
+            self.alertMessage = "Unable to delete cache: \(error.localizedDescription)"
         }
     }
     

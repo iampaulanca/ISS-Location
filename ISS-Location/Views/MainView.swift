@@ -71,6 +71,9 @@ struct MainView: View {
                 }
             }
         }
+        .alert(isPresented: $mainViewModel.alertShow) {
+            Alert(title: Text("Error"), message: Text("\(mainViewModel.alertMessage)"))
+        }
     }
 }
 
