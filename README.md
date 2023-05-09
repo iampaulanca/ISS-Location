@@ -14,6 +14,7 @@ Features:
 
 Roadmap:
 - Manual delete history capability
+- Service class abstraction for network requests
 - Fine tune known coordinates for easier scrolling
 - Guide to turn on services for location authorization if user has it turned off 
 - Increase unit test coverage and add UI testing
