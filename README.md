@@ -6,7 +6,7 @@ Prerequistes:
 
 Features:
 - Live ISS position updates
-- List of astronauts in space
+- List of astronauts currently in space
 - Live Map updates for ISS position
 - Persisted history of ISS locations 
 - Auto-remove data thats 2 weeks old
