@@ -40,10 +40,14 @@ import CoreLocation
             // Fetches the history of ISS locations and deletes any old objects
             try fetchHistory()
             try deleteOldObjects()
-        } catch {
+        } catch let error as MainViewModelErrors {
             // If an error occurs, display an alert with the error message
             alertShow = true
-            alertMessage = "\(error)"
+            alertMessage = "\(error.localizedDescription)"
+        } catch {
+            // All other errors can be generic system error message
+            alertShow = true
+            alertMessage = "Somethign happened try again later."
         }
     }
     
@@ -64,23 +68,23 @@ import CoreLocation
     
     // fetch current ISS position
     @discardableResult
-    func fetchLocationOfISS() async throws -> ISSPositionResponse {
+    func fetchPositionOfISS() async throws -> ISSPositionResponse {
         do  {
             // create URL object with ISS position API endpoint
-            guard let url = URL(string: "http://api.open-notify.org/iss-now.json") else { fatalError("need url") }
+            guard let url = URL(string: "http://api.open-notify.org/iss-now.json") else { throw MainViewModelErrors.urlMissing }
             // retrieve data from the URL using shared URLSession
             let (data, _) = try await URLSession.shared.data(from: url)
             // decode the JSON data into ISSPositionResponse object
-            let issLocation = try JSONDecoder().decode(ISSPositionResponse.self, from: data)
+            let issPosition = try JSONDecoder().decode(ISSPositionResponse.self, from: data)
             // if the position data exists, set the current ISS location to that position and update the map view accordingly
-            if let issLocation = issLocation.position, let lat = Double(issLocation.latitude), let long = Double(issLocation.longitude) {
+            if let issPosition = issPosition.position, let lat = Double(issPosition.latitude), let long = Double(issPosition.longitude) {
                 currentISSLocation = CLLocation(latitude: lat, longitude: long)
                 locationViewManager.region.center = CLLocationCoordinate2D(latitude: lat, longitude: long)
             }
             // save the ISS position data for later use
-            try save(issLocation)
+            try save(issPosition)
             // return the ISS position data
-            return issLocation
+            return issPosition
         } catch {
             // throw a network error if the API request fails
             throw MainViewModelErrors.networkError("\(error.localizedDescription)")
@@ -117,16 +121,11 @@ import CoreLocation
     // calculate distance to ISS from user's current position
     // if the user's current position is not available, use Apple's Cupertino HQ as default
     func calculateDistanceToISS() async throws {
-        do {
-            // fetch the current ISS position
-            try await fetchLocationOfISS()
-            // if the current ISS position is available, calculate the distance to the user's current location
-            guard let currentISSLocation = currentISSLocation else { throw MainViewModelErrors.noISSLocation }
-            currentDistanceToISS = currentISSLocation.distance(from: fetchUsersCurrentLocation()) / 1000
-        } catch {
-            alertShow = true
-            alertMessage = error.localizedDescription
-        }
+        // fetch the current ISS position
+        try await fetchPositionOfISS()
+        // if the current ISS position is available, calculate the distance to the user's current location
+        guard let currentISSLocation = currentISSLocation else { throw MainViewModelErrors.noISSLocation }
+        currentDistanceToISS = currentISSLocation.distance(from: fetchUsersCurrentLocation()) / 1000
     }
     
     // save new positions in database
@@ -142,9 +141,8 @@ import CoreLocation
                 }
             }
         } catch {
-            // Show an alert if there was an error deleting old objects
-            self.alertShow = true
-            self.alertMessage = "Unable to delete cache: \(error.localizedDescription)"
+            // Throw database error if we run into a problem adding to Realm
+            throw MainViewModelErrors.databaseError(error.localizedDescription)
         }
     }
     
@@ -160,9 +158,8 @@ import CoreLocation
                 realm.delete(objectsToDelete)
             }
         } catch {
-            // Show an alert if there was an error deleting old objects
-            self.alertShow = true
-            self.alertMessage = "Unable to delete cache: \(error.localizedDescription)"
+            // Throw database error if we run into a problem deleting from Realm
+            throw MainViewModelErrors.databaseError(error.localizedDescription)
         }
     }
     

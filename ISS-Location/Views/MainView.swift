@@ -57,9 +57,9 @@ struct MainView: View {
         .onAppear {
             mainViewModel.locationViewManager.checkIfLocationServiceIsEnabled()
             Task {
+                defer { Task { @MainActor in initialLoadCompleted = true } }
                 try await mainViewModel.fetchAstronautsOnISS()
                 try await mainViewModel.calculateDistanceToISS()
-                initialLoadCompleted = true
             }
         }
         // Overlay a ProgressView while the initial data load is not completed.

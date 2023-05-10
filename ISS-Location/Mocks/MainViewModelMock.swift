@@ -10,7 +10,7 @@ import CoreLocation
 
 @MainActor class MainViewModelMock: MainViewModel {
     var fetchHistoryError: MainViewModelErrors?
-    var fetchLocationOfISSError: MainViewModelErrors?
+    var fetchPositionOfISSError: MainViewModelErrors?
     var fetchAstronautsOnISSError: MainViewModelErrors?
     var calculateDistanceToISSError: MainViewModelErrors?
     var fetchHistoryInvoked = 0
@@ -26,8 +26,8 @@ import CoreLocation
     }
     
     @discardableResult
-    override func fetchLocationOfISS() async throws -> ISSPositionResponse  {
-        guard fetchLocationOfISSError == nil else { throw MainViewModelErrors.networkError("couldnt fetch location") }
+    override func fetchPositionOfISS() async throws -> ISSPositionResponse  {
+        guard fetchPositionOfISSError == nil else { throw MainViewModelErrors.networkError("couldnt fetch location") }
         
         let dummyISSPositionResponse = try! JSONDecoder().decode(ISSPositionResponse.self, from: issPositionReponseJSONData)
         let lat = Double(dummyISSPositionResponse.position!.latitude)!
@@ -52,7 +52,7 @@ import CoreLocation
     
     override func calculateDistanceToISS() async throws {
         guard calculateDistanceToISSError == nil else { throw MainViewModelErrors.networkError("couldnt calculate distance") }
-        try await fetchLocationOfISS()
+        try await fetchPositionOfISS()
         guard let currentISSLocation = currentISSLocation else { throw MainViewModelErrors.noISSLocation }
         currentDistanceToISS = currentISSLocation.distance(from: fetchUsersCurrentLocation()) / 1000
     }

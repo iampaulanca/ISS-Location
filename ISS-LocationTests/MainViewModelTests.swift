@@ -22,8 +22,8 @@ import XCTest
         XCTAssertNotNil(mockViewModel.issPositionHistory)
     }
     
-    func testFetchLocationOfISS() async throws {
-        try await mockViewModel.fetchLocationOfISS()
+    func testFetchPositionOfISS() async throws {
+        try await mockViewModel.fetchPositionOfISS()
         XCTAssertNotNil(mockViewModel.currentISSLocation)
     }
     
