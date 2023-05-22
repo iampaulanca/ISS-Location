@@ -153,10 +153,14 @@ import CoreLocation
             let twoWeeksAgo = Int(Date().timeIntervalSince1970) - (14 * 24 * 60 * 60)
             // Query database for ISSPositionResponse objects that have a timestamp older than two weeks ago
             let objectsToDelete = realm.objects(ISSPositionResponse.self).filter("timestamp < %@", twoWeeksAgo)
-            guard objectsToDelete.count > 0 else { return }
+            
             try realm.write {
                 // Delete the objects that are older than two weeks ago
-                realm.delete(objectsToDelete)
+                for object in objectsToDelete {
+                    if !object.isInvalidated {
+                        realm.delete(object)
+                    }
+                } 
             }
         } catch {
             // Throw database error if we run into a problem deleting from Realm
