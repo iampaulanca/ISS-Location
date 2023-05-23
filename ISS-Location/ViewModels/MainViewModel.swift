@@ -136,7 +136,7 @@ import CoreLocation
                 realm.add(issLocation)
                 // Append location to locations array if latitude and longitude are not nil
                 if let lat = Double(issLocation.position?.latitude ?? ""), let long = Double(issLocation.position?.longitude ?? "") {
-                    let coreLocation2D = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                    _ = CLLocationCoordinate2D(latitude: lat, longitude: long)
                     issPositionHistory.append(issLocation)
                 }
             }
