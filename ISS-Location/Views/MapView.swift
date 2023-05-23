@@ -41,12 +41,17 @@ struct MapView: View {
             VStack(alignment: .leading) {
                 Text("Previous Positions of ISS")
                     .bold()
-                Text("Time: \(mainViewModel.issPositionHistory[Int(knownPositionIndex)].timestamp.dateToString())")
-                Text("Latitude: \(mainViewModel.issPositionHistory[Int(knownPositionIndex)].position?.latitude ?? "NA")")
-                Text("Longitude: \(mainViewModel.issPositionHistory[Int(knownPositionIndex)].position?.latitude ?? "NA")")
-                Slider(value: $knownPositionIndex, in: 0...Double(mainViewModel.issPositionHistory.count-1), step: 1.0)
-                    .padding(.horizontal)
-                    .disabled(mainViewModel.issPositionHistory.isEmpty)
+                if mainViewModel.issPositionHistory.count > 1 {
+                    Text("Time: \(mainViewModel.issPositionHistory[Int(knownPositionIndex)].timestamp.dateToString())")
+                    Text("Latitude: \(mainViewModel.issPositionHistory[Int(knownPositionIndex)].position?.latitude ?? "NA")")
+                    Text("Longitude: \(mainViewModel.issPositionHistory[Int(knownPositionIndex)].position?.latitude ?? "NA")")
+                    Slider(value: $knownPositionIndex, in: 0...Double(mainViewModel.issPositionHistory.count-1), step: 1.0)
+                        .padding(.horizontal)
+                        .disabled(mainViewModel.issPositionHistory.isEmpty)
+                } else {
+                    Text("No recorded data")
+                }
+
             }
             .padding(.horizontal)
             // MapUIViewRepresentable to display the map and annotations
